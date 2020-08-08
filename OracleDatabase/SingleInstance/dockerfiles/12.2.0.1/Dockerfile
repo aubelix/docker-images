@@ -62,7 +62,9 @@ ENV PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch/:/usr/sbin:$PATH \
 COPY $SETUP_LINUX_FILE $CHECK_SPACE_FILE $INSTALL_DIR/
 COPY $RUN_FILE $START_FILE $CREATE_DB_FILE $CONFIG_RSP $PWD_FILE $CHECK_DB_FILE $USER_SCRIPTS_FILE $ORACLE_BASE/
 
-RUN chmod ug+x $INSTALL_DIR/*.sh && \
+RUN echo "sslverify=false" >> /etc/yum.conf && \
+    echo "sslverify=false" >> ~/.yum.conf && \
+    chmod ug+x $INSTALL_DIR/*.sh && \
     sync && \
     $INSTALL_DIR/$CHECK_SPACE_FILE && \
     $INSTALL_DIR/$SETUP_LINUX_FILE && \
